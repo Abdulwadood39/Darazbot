@@ -1,0 +1,129 @@
+:root {
+  --daraz-primary-color: #f90000; /* Daraz's primary color */
+  --daraz-secondary-color: #e1d1c7; /* Daraz's secondary color */
+  --daraz-background-color: #ffffff; /* Daraz's background color */
+  --daraz-text-color: #333333; /* Daraz's text color */
+  --daraz-text-color-lighten: rgb(90, 90, 90) 3; /* Daraz's text color */
+}
+
+body {
+  background-color: var(--daraz-secondary-color);
+  color: var(--daraz-text-color);
+}
+
+#daraz-logo {
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Ensure the image is treated as a block element */
+  margin-left: 50%;
+
+  transform: translateX(-50%); /* Adjust for the logo's own width */
+  width: 20%;
+}
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+#record-btn {
+  background-color: var(
+    --daraz-secondary-color
+  ); /* Use Daraz's primary color */
+  color: var(
+    --daraz-background-color
+  ); /* Use Daraz's background color for text */
+  border: none; /* Remove default border */
+  padding: 10px 20px; /* Add padding */
+  border-radius: 5px; /* Add rounded corners */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+#record-btn:hover {
+  background-color: var(
+    --daraz-primary-color
+  ); /* Change background color on hover */
+}
+
+.chat-box {
+  background-color: var(--daraz-text-color);
+  color: var(--daraz-background-color);
+  border: 1px solid #333;
+  border-radius: 5px;
+  padding: 10px;
+  height: 400px;
+  overflow-y: scroll;
+}
+
+.chat-logs {
+  padding: 10px;
+}
+
+.chat-input {
+  display: grid;
+  margin-top: 10px;
+  place-items: center;
+}
+
+.chat-input input {
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #333;
+  background-color: #222;
+  color: #fff;
+}
+
+.chat-input button {
+  margin-left: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--daraz-secondary-color);
+  color: #000000;
+  cursor: pointer;
+}
+
+.chat-input button:hover {
+  background-color: #ef701c;
+}
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border-left-color: #f90000; /* Daraz's primary color */
+  animation: spin 1s ease infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.button {
+  display: flex;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: var(--daraz-text-color);
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: rgb(183, 177, 177) 3;
+}
+
+#button-container {
+  display: flex;
+}
+
+#button-container button {
+  margin-right: 10px; /* Adjust the spacing between buttons */
+}
