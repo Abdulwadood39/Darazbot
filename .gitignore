@@ -1,3 +1,4 @@
 vector_db
 Procfile
 reqs_.txt
+__pycache__

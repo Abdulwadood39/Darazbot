@@ -5,8 +5,10 @@ import os
 import speech_recognition as sr
 import chatbot
 import tempfile
+from flask_ngrok import run_with_ngrok
 
 app = Flask(__name__)
+run_with_ngrok(app)
 
 Darazbot = chatbot.Darazbot()
 
@@ -82,4 +84,4 @@ def index():
         return render_template("index.html")
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    app.run(debug=True, port=5000)
