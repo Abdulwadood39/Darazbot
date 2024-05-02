@@ -24,30 +24,32 @@ This repository contains the source code for a Flask-based chatbot application t
 ## Installation
 
 1. Clone the repository:
-bash git clone https://github.com/Abdulwadood39/Darazbot.git cd Darazbot
+
+   ```
+   git clone https://github.com/Abdulwadood39/Darazbot.git cd Darazbot
+   ```
 
 2. Install the required Python packages:
-bash pip install -r requirements.txt
-
+   bash pip install -r requirements.txt
 
 ## Running the Application
 
-1. Ensure Ngrok is installed on your system. If not, download and install it from [Ngrok's official website](https://ngrok.com/download).
-
+1. Ensure Ngrok is installed on your system. If not, download and install it from [Ngrok&#39;s official website](https://ngrok.com/download).
 2. Start the Flask application:
 
-'''
+```
 curl -fsSL https://ollama.com/install.sh | sh
-ollama pull mistral 
+ollama pull mistral
 ollama pull nomic-embed-text
 python3 vector_db.py
-python3 app.py
-'''
+python3 app.py || flask run --port 5001
+```
 
 3. Open a new terminal window and start Ngrok by specifying the port your Flask application is running on (default is 5001):
 
-bash ./ngrok http 5001
-
+```
+./ngrok http 5001
+```
 
 For Windows users, the command might be slightly different, e.g., `ngrok http 5001`.
 
