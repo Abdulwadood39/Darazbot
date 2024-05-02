@@ -36,13 +36,14 @@ bash pip install -r requirements.txt
 
 2. Start the Flask application:
 
-'''bash 
+'''shell 
 curl -fsSL https://ollama.com/install.sh | sh
 ollama pull mistral 
 ollama pull nomic-embed-text
 python3 vector_db.py
 python3 app.py
 '''
+
 3. Open a new terminal window and start Ngrok by specifying the port your Flask application is running on (default is 5001):
 
 bash ./ngrok http 5001
