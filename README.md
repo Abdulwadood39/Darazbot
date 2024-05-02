@@ -36,7 +36,7 @@ bash pip install -r requirements.txt
 
 2. Start the Flask application:
 
-'''shell 
+'''
 curl -fsSL https://ollama.com/install.sh | sh
 ollama pull mistral 
 ollama pull nomic-embed-text
