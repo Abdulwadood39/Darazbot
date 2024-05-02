@@ -167,11 +167,14 @@ class Darazbot:
                 The template for generating prompts for the language model (default is PRE_PROMPT).
         """
         
+        # base_url = "http://ollama-container:11434" #for running via docker use ...
+        base_url = "http://localhost:11434"  #for running locally use .....
+        
         # Load the model Locally from downloaded Ollama models
-        self.model = ChatOllama(model=model_name, device="cpu")
+        self.model = ChatOllama(model=model_name, base_url=base_url)
         # Load the persisted database
         self.vector_db = Chroma(collection_name=collection_name,
-                                embedding_function=OllamaEmbeddings(model="nomic-embed-text"),
+                                embedding_function=OllamaEmbeddings(model="nomic-embed-text", base_url=base_url),
                                 persist_directory=persist_directory)
 
         QUERY_PROMPT = PromptTemplate(
