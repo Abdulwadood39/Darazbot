@@ -1,9 +1,0 @@
-FROM python:3.11.9
-WORKDIR /app
-COPY . .
-RUN pip install --no-cache-dir -r requirements.txt
-
-RUN curl -fsSL https://ollama.com/install.sh | sh
-RUN ollama pull mistral
-RUN ollama pull nomic-embed-text
-CMD ["flask", "run", "--host=0.0.0.0"]
