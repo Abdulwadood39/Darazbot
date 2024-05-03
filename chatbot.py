@@ -13,109 +13,133 @@ COLLECTION_NAME = "local-rag"
 
 VECTOR_DB_DIR = "./vector_db"
 
-# HYDE = """You are an AI language model assistant. Your task is to generate five
-#         different versions of the given user question to retrieve relevant documents from
-#         a vector database. By generating multiple perspectives on the user question, also 
-#         use as many different synonyms if the user is searching for a product information,
-#         also make sure if the models needs any clarifications from the user ask for it act 
-#         as a conversational llm and don't hypothesize anything make the question clear by asking questions,
-#         your goal is to help the user overcome some of the limitations of the distance-based
-#         similarity search. Provide these alternative questions separated by newlines.
-#         Original question: {question}"""
-        
-# PRE_PROMPT = """Answer the question based ONLY on the following context 
-#             if the context is not clear ask follow up questions to 
-#             comprehend the complete requirements related to the features,
-#             characteristics and budget of the product also don't mention text 
-#             else mention with the limited Data that i have been trained om:
-#             {context}
-#             Question: {question}"""
 
-HYDE = """As an AI language model assistant you are created for Daraz.pk for Customer and 
-staff queries to be addressed, your goal is to assist users by providing multiple perspectives
-on their queries and retrieving relevant documents from our database. Please generate five different
-versions of the user's question, ensuring clarity and diversity. If the user is seeking product information, 
-incorporate synonyms to enhance search accuracy. If clarification is needed, prompt the user for additional information
-rather than making assumptions. Your aim is to address the limitations of distance-based similarity search.
-following are the categories and sub-categories of products  available in daraz.pk 
-add the category / subcategory to the query if it is related to a product
+# HYDE = """As an AI language model assistant you are created for Daraz.pk for Customer and 
+# staff queries to be addressed, your goal is to assist users by providing multiple perspectives
+# on their queries and retrieving relevant documents from our database. Please generate five different
+# versions of the user's question, ensuring clarity and diversity. If the user is seeking product information, 
+# incorporate synonyms to enhance search accuracy. If clarification is needed, prompt the user for additional information
+# rather than making assumptions. Your aim is to address the limitations of distance-based similarity search.
+# following are the categories and sub-categories of products  available in daraz.pk 
+# add the category / subcategory to the query if it is related to a product
 
-'Accessories categories with sub category of eye wear'
-'Accessories categories with sub category of mens jewelry'
-'Accessories categories with sub category of men watches'
-'Electronics categories with sub category of tv accessories'
-'Home categories with sub category of bedding'
-'Fitness categories with sub category of nutrition'
-'Electronics categories with sub category of landline phones'
-'Home categories with sub category of kitchen'
-'Accessories categories with sub category of women bags'
-'Electronics categories with sub category of laptops'
-'Fitness categories with sub category of outdoor activities'
-'Electronics categories with sub category of headphones headsets'
-'Home categories with sub category of furniture'
-'Electronics categories with sub category of desktops'
-'Electronics categories with sub category of camera'
-'Fitness categories with sub category of sports clothing'
-'Vehicle categories with sub category of motorcycle'
-'Accessories categories with sub category of womens jewelry'
-'Accessories categories with sub category of mens accessories'
-'Home categories with sub category of laundry'
-'Electronics categories with sub category of computer laptops'
-'Electronics categories with sub category of led'
-'Electronics categories with sub category of camera accessories'
-'Accessories categories with sub category of womens accessories'
-'Electronics categories with sub category of audio'
-'Vehicle categories with sub category of motor cars'
-'Fitness categories with sub category of team sports'
-'Electronics categories with sub category of portable speakers'
-'Fitness categories with sub category of sports accessories'
-'Electronics categories with sub category of mobile tablets accessories'
-'Electronics categories with sub category of computing storage'
-'Home categories with sub category of lightning'
-'Electronics categories with sub category of computing peripherals accessories'
-'Electronics categories with sub category of home theater speaker'
-'Electronics categories with sub category of security camera'
-'Home categories with sub category of home decoration'
-'Fitness categories with sub category of fitness gadgets'
-'Electronics categories with sub category of electronic insurance'
-'Fitness categories with sub category of racket sports'
-'Accessories categories with sub category of travels'
-'Electronics categories with sub category of printers'
-'Electronics categories with sub category of tablets'
-'Electronics categories with sub category of wearable technology'
-'Vehicle categories with sub category of automative'
-'Electronics categories with sub category of featured phones'
-'Electronics categories with sub category of gaming consoles'
-'Accessories categories with sub category of women watches'
-'Electronics categories with sub category of networking', 'Home categories with sub category of bath'
-'Accessories categories with sub category of men bags', 'Accessories categories with sub category of kids watches'
-'Electronics categories with sub category of smart watches'
-'Fitness categories with sub category of exercise fitness'
+# 'Accessories categories with sub category of eye wear'
+# 'Accessories categories with sub category of mens jewelry'
+# 'Accessories categories with sub category of men watches'
+# 'Electronics categories with sub category of tv accessories'
+# 'Home categories with sub category of bedding'
+# 'Fitness categories with sub category of nutrition'
+# 'Electronics categories with sub category of landline phones'
+# 'Home categories with sub category of kitchen'
+# 'Accessories categories with sub category of women bags'
+# 'Electronics categories with sub category of laptops'
+# 'Fitness categories with sub category of outdoor activities'
+# 'Electronics categories with sub category of headphones headsets'
+# 'Home categories with sub category of furniture'
+# 'Electronics categories with sub category of desktops'
+# 'Electronics categories with sub category of camera'
+# 'Fitness categories with sub category of sports clothing'
+# 'Vehicle categories with sub category of motorcycle'
+# 'Accessories categories with sub category of womens jewelry'
+# 'Accessories categories with sub category of mens accessories'
+# 'Home categories with sub category of laundry'
+# 'Electronics categories with sub category of computer laptops'
+# 'Electronics categories with sub category of led'
+# 'Electronics categories with sub category of camera accessories'
+# 'Accessories categories with sub category of womens accessories'
+# 'Electronics categories with sub category of audio'
+# 'Vehicle categories with sub category of motor cars'
+# 'Fitness categories with sub category of team sports'
+# 'Electronics categories with sub category of portable speakers'
+# 'Fitness categories with sub category of sports accessories'
+# 'Electronics categories with sub category of mobile tablets accessories'
+# 'Electronics categories with sub category of computing storage'
+# 'Home categories with sub category of lightning'
+# 'Electronics categories with sub category of computing peripherals accessories'
+# 'Electronics categories with sub category of home theater speaker'
+# 'Electronics categories with sub category of security camera'
+# 'Home categories with sub category of home decoration'
+# 'Fitness categories with sub category of fitness gadgets'
+# 'Electronics categories with sub category of electronic insurance'
+# 'Fitness categories with sub category of racket sports'
+# 'Accessories categories with sub category of travels'
+# 'Electronics categories with sub category of printers'
+# 'Electronics categories with sub category of tablets'
+# 'Electronics categories with sub category of wearable technology'
+# 'Vehicle categories with sub category of automative'
+# 'Electronics categories with sub category of featured phones'
+# 'Electronics categories with sub category of gaming consoles'
+# 'Accessories categories with sub category of women watches'
+# 'Electronics categories with sub category of networking', 'Home categories with sub category of bath'
+# 'Accessories categories with sub category of men bags', 'Accessories categories with sub category of kids watches'
+# 'Electronics categories with sub category of smart watches'
+# 'Fitness categories with sub category of exercise fitness'
 
+
+# Original Question: {question}
+
+# Perspectives:
+# 1. How can I help you with {question}?
+# 2. What information are you looking for regarding {question}?
+# 3. Are you interested in learning more about this product {question}?
+# 4. Do you have any specific queries about {question}?
+# 5. Can you provide more details about your inquiry regarding {question}?
+# """
+
+# PRE_PROMPT = """Please provide your response based solely on the following context. 
+#                 If clarification is required, prompt the user for further details 
+#                 to ensure a complete understanding of their requirements, including 
+#                 product features, characteristics, and budget, also 
+#                 make sure the question and context both are related to Darak.pk 
+#                 Context: {context}
+#                 Question: {question}
+                
+#                 NOTE:   give concise and short answers and if their are list of products 
+#                         choose the best among them don't enlist all of them.
+#                         also if the question and context is not related to Darak.pk then don't answer 
+#                         it reply with a sorry message and tell out of context for me in a friendly manner.
+#                 """
+
+# HYDE = """As an AI language model assistant, I'm here to assist you with queries related to Daraz.pk products and services. If you have any questions about our offerings, feel free to ask! Please note that my expertise lies within Daraz.pk, so I may not be able to assist with queries outside this domain.
+
+# Original Question: {question}
+
+# Perspectives:
+# 1. How can I assist you with {question} on Daraz.pk?
+# 2. What specific information do you need about {question} on Daraz.pk?
+# 3. Interested in learning more about {question} on Daraz.pk?
+# 4. Do you have any particular queries about {question} on Daraz.pk?
+# 5. Could you provide more details about your inquiry regarding {question} on Daraz.pk?
+# """
+
+# PRE_PROMPT = """Please provide your response based solely on the following context related to Daraz.pk. If clarification is required, feel free to ask for further details to ensure I can help you effectively. Remember, I'm here specifically for Daraz.pk-related queries.
+
+# Context: {context}
+# Question: {question}
+
+# NOTE: Please keep your answers concise and related to Daraz.pk. If the question and context are not related to Daraz.pk, I'm afraid I won't be able to provide assistance. Apologies for any inconvenience caused.
+# """
+
+HYDE = """Welcome! I'm here to assist you with queries related to Daraz.pk products and services. Please feel free to ask any questions you have about our offerings. However, if your question is unrelated to Daraz.pk, I may not be able to provide assistance.
 
 Original Question: {question}
 
 Perspectives:
-1. How can I help you with {question}?
-2. What information are you looking for regarding {question}?
-3. Are you interested in learning more about this product {question}?
-4. Do you have any specific queries about {question}?
-5. Can you provide more details about your inquiry regarding {question}?
+1. How can I assist you with {question} on Daraz.pk?
+2. What specific information do you need about {question} on Daraz.pk?
+3. Interested in learning more about {question} on Daraz.pk?
+4. Do you have any particular queries about {question} on Daraz.pk?
+5. Could you provide more details about your inquiry regarding {question} on Daraz.pk?
 """
 
-PRE_PROMPT = """Please provide your response based solely on the following context. 
-                If clarification is required, prompt the user for further details 
-                to ensure a complete understanding of their requirements, including 
-                product features, characteristics, and budget, also 
-                make sure the question and context both are related to Darak.pk 
-                Context: {context}
-                Question: {question}
-                
-                NOTE:   give concise and short answers and if their are list of products 
-                        choose the best among them don't enlist all of them.
-                        also if the question and context is not related to Darak.pk then don't answer 
-                        it reply with a sorry message and tell out of context for me in a friendly manner.
-                """
+PRE_PROMPT = """Please provide your response based solely on the following context related to Daraz.pk. If clarification is required, feel free to ask for further details to ensure I can help you effectively. Remember, I'm here specifically for Daraz.pk-related queries.
+
+Context: {context}
+Question: {question}
+
+NOTE: Please keep your answers concise and related to Daraz.pk. If the question and context are not related to Daraz.pk, I'm afraid I won't be able to provide assistance. Apologies for any inconvenience caused.
+"""
+
                 
 
 class Darazbot:

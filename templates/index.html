@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -29,13 +30,17 @@
             id="user-input"
             placeholder="Type your message..."
           />
-          <button class="chat-input" id="send-btn">Send</button>
+          <div id="button-container">
+            <button class="chat-input" id="send-btn">Send</button>
+          </div>
         </br>
         <div id="button-container">
-            <button id="recordButton">Record</button>
-            <button id="stopButton" style="display:none;">Stop</button>
+          <button id="recordButton">Record</button>
+          <button id="stopButton" style="display:none;">Stop</button>
+            <div id="loading-spinner" style="display: none">
+              <div class="spinner"></div>
+            </div>
           </div>
-        </div>
       </div>
       
       <!--<button id="pauseButton" style="display=none">Pause</button>-->
@@ -54,11 +59,11 @@
       var audioContext; //audio context to help us record
 
       var sendButton = document.getElementById("send-btn");
-      
-
       var recordButton = document.getElementById("recordButton");
       var stopButton = document.getElementById("stopButton");
       var userInput = document.getElementById("user-input");
+      var spin = document.getElementById("loading-spinner");
+      appendChatLog("Daraz-Bot", "Hi, How can I help you?")
 
       userInput.addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
@@ -68,11 +73,19 @@
       //add events to those 2 buttons
       recordButton.addEventListener("click", startRecording);
       stopButton.addEventListener("click", stopRecording);
-
+      userInput.disable = true;
       sendButton.addEventListener("click", startChat);
       function startChat() {
+        
+
+
         var userMessage = userInput.value;
         if (userMessage) {
+          sendButton.style.display = "none";
+          recordButton.style.display = "none";
+          stopButton.style.display = "none";
+          spin.style.display = "block";
+          userInput.disabled = true;
           appendChatLog("User", userMessage);
           userInput.value = "";
           fetch("/submit", {
@@ -83,24 +96,39 @@
             body: JSON.stringify({ text: userMessage }),
           })
             .then((response) => response.json())
-            .then((data) => appendChatLog("Model", data.response));
+            .then((data) => {
+              appendChatLog("Daraz-Bot", data.response)
+              sendButton.style.display = "block";
+              recordButton.style.display = "block";
+              spin.style.display = "none";
+              userInput.disabled = false;
+
+            });
         }
       }
 
       function appendChatLog(sender, message) {
+        //if sender is model change color 
+        
         var chatLogs = document.getElementById("chat-logs");
         var newLog = document.createElement("p");
+        if (sender === "Daraz-Bot") {
+          newLog.style.color = "#e1d1c7"; // Change the color to blue for model messages
+        } else {
+            newLog.style.color = "#f8ab7c"; // Default color for other messages 
+        }
         newLog.textContent = `${sender}: ${message}`;
         chatLogs.appendChild(newLog);
         chatLogs.scrollTop = chatLogs.scrollHeight;
       }
 
       function startRecording() {
+        
         console.log("recordButton clicked");
-
+        
         var constraints = { audio: true, video: false };
-
         recordButton.style.display = "none";
+        sendButton.style.display = "none";
         stopButton.style.display = "block";
 
         navigator.mediaDevices
@@ -145,46 +173,17 @@
           pauseButton.innerHTML = "Pause";
         }
       }
-      /**
-      function stopRecording() {
-        console.log("stopButton clicked");
 
-        stopButton.disabled = true;
-        recordButton.disabled = false;
-        pauseButton.disabled = true;
-
-        pauseButton.innerHTML = "Pause";
-
-        rec.stop();
-
-        gumStream.getAudioTracks()[0].stop();
-
-        rec.exportWAV(function (blob) {
-          uploadRecording(blob)
-            .then((response) => response.json()) // This line throws the error
-            .then((data) => {
-              appendChatLog("User", data.transcription);
-              return fetch("/submit", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ text: data.transcription, voice: true }),
-              })
-                .then((response) => response.json())
-                .then((data) => appendChatLog("Model", data.response));
-            });
-        });
-      }**/
       function stopRecording() {
         console.log("stopButton clicked");
       
-        stopButton.disabled = true;
-        recordButton.disabled = false;
-
-      
         rec.stop();
-      
+        stopButton.disabled = true;
+        stopButton.style.display = "none";
+        sendButton.style.display = "none";
+        spin.style.display = "block";
+        userInput.disabled = true;
+
         gumStream.getAudioTracks()[0].stop();
       
         rec.exportWAV(function (blob) {
@@ -205,8 +204,10 @@
             })
             .then((response) => response.json())
             .then((data) => {
-              appendChatLog("Model", data.response);
+              appendChatLog("Daraz-Bot", data.response);
 
+              spin.style.display = "none";
+              recordButton.style.display = "block";
               // Send the processed text to the server
               return fetch("/process_text", {
                 method: "POST",
@@ -221,14 +222,22 @@
               // Hide loading animation and re-enable the button
               recordButton.style.display = "block";
               stopButton.style.display = "none";
+              userInput.disabled = false;
+              sendButton.style.display = "block";
+
             })
             .catch((error) => {
               console.error("Error:", error);
               recordButton.style.display = "block";
               stopButton.style.display = "none";
+              document.getElementById("loading-spinner").style.display = "none";
+
             });
+            /*
               recordButton.style.display = "block";
               stopButton.style.display = "none";
+              spin.style.display = "none";*/
+
       });
       
       /**

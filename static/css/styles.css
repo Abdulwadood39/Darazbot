@@ -91,7 +91,7 @@ body {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border-left-color: #f90000; /* Daraz's primary color */
+  border-left-color: #ef701c; /* Daraz's primary color */
   animation: spin 1s ease infinite;
 }
 
